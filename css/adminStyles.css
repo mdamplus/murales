@@ -1,0 +1,54 @@
+/* Estilos exclusivos del backoffice del Plugin */
+
+
+
+/* 01 - configuración */
+
+.wrap .wp-menu-image:before {
+    content: '\f103'; /* El ícono de configuración */
+    font-family: dashicons;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.google-map iframe {
+    border: none;
+}
+
+
+
+/* 02? Estilos para la página de murales */
+
+/* Estilo para la imagen del mural */
+.muralImage img {
+    width: 100%;
+    height: auto;
+}
+
+/* Estilo para el mapa de Google */
+.googleMap iframe {
+    width: 100%;
+    height: 450px;
+}
+
+/* Estilo para la información del artista */
+.artistInfo {
+    margin-top: 20px;
+}
+
+.artistInfo .artistImage {
+    max-width: 150px;
+    border-radius: 50%;
+}
+
+.artistInfo h2 {
+    margin-top: 10px;
+}
+
+.artistaFoto{
+    width:150px;
+}
+
+.artistaTXT {
+    font-size:20px;
+}
