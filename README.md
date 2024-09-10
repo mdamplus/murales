@@ -1,9 +1,5 @@
-# CPTz-custom-post-type
-CTPz Custom Post Type
+# Murales
 
 
-El plugin permite crear nuevas taxonomías de wordpress. 
+El plugin permite crear una nueva taxonomía que permite publicar los diversos murales que decoran las ciudades, creando al mismo tiempo categorías de artistas, distritos geográficos y patrocinadores
 
-Por defecto esta preparado para crear una taxonomía de portfolio de trabajo o como ficha de producto. Simplemente para darle otra utilidad hay que cambiar los textos. Inclusive esta preparado para traducirlo en varios idiomas.
-
-zBoy
