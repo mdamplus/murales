@@ -1,0 +1,250 @@
+<?php
+/*
+ * Plugin Name: Murales by z
+ * Description: Plugin para la creación de taxonomía de artistas y murales.
+ * Version: 2024.09.2 
+ * Author: martinarnedo.com
+ * Author URI: https://martinarnedo.com
+ */
+
+// Registrar el Custom Post Type Murales
+function muralZz() {
+    $labels = array(
+        'name'                  => __( 'Murales', 'mdam' ),
+        'singular_name'         => __( 'Mural', 'mdam' ),
+        'menu_name'             => __( 'Murales', 'mdam' ),
+        'name_admin_bar'        => __( 'Mural', 'mdam' ),
+        'archives'              => __( 'Archivos de Murales', 'mdam' ),
+        'all_items'             => __( 'Todos los Murales', 'mdam' ),
+        'add_new_item'          => __( 'Agregar nuevo Mural', 'mdam' ),
+        'new_item'              => __( 'Nuevo Mural', 'mdam' ),
+        'edit_item'             => __( 'Editar Mural', 'mdam' ),
+        'update_item'           => __( 'Actualizar Mural', 'mdam' ),
+        'view_item'             => __( 'Ver Mural', 'mdam' ),
+        'search_items'          => __( 'Buscar Murales', 'mdam' ),
+    );
+
+    $args = array(
+        'label'                 => __( 'Murales', 'mdam' ),
+        'description'           => __( 'Un tipo de contenido para gestionar murales.', 'mdam' ),
+        'labels'                => $labels,
+        'supports'              => array( 'title', 'editor', 'thumbnail' ),
+        'taxonomies'            => array( 'artista', 'financiacion' ),
+        'public'                => true,
+        'hierarchical'          => false,
+        'show_ui'               => true,
+        'menu_position'         => 5,
+        'menu_icon'             => 'dashicons-art', // Cambia el ícono a una paleta de pintura
+        'has_archive'           => true,
+        'rewrite'               => array( 'slug' => 'murales' ),
+        'show_in_rest'          => true,
+    );
+
+    register_post_type( 'murales', $args );
+}
+add_action( 'init', 'muralZz' );
+
+// Registrar la taxonomía Artista
+function artistaTaxonomy() {
+    $labels = array(
+        'name'              => __( 'Artistas', 'mdam' ),
+        'singular_name'     => __( 'Artista', 'mdam' ),
+        'search_items'      => __( 'Buscar Artistas', 'mdam' ),
+        'all_items'         => __( 'Todos los Artistas', 'mdam' ),
+        'parent_item'       => __( 'Artista Padre', 'mdam' ),
+        'parent_item_colon' => __( 'Artista Padre:', 'mdam' ),
+        'edit_item'         => __( 'Editar Artista', 'mdam' ),
+        'update_item'       => __( 'Actualizar Artista', 'mdam' ),
+        'add_new_item'      => __( 'Agregar Nuevo Artista', 'mdam' ),
+        'new_item_name'     => __( 'Nuevo Nombre de Artista', 'mdam' ),
+        'menu_name'         => __( 'Artista', 'mdam' ),
+    );
+
+    $args = array(
+        'labels'            => $labels,
+        'hierarchical'      => true,
+        'show_ui'           => true,
+        'show_in_rest'      => true,
+        'rewrite'           => array( 'slug' => 'artista' ),
+    );
+
+    register_taxonomy( 'artista', array( 'murales' ), $args );
+}
+add_action( 'init', 'artistaTaxonomy' );
+
+
+// Registrar la taxonomía Distrito
+function distritoTaxonomy() {
+    $labels = array(
+        'name'              => __( 'Distritos', 'mdam' ),
+        'singular_name'     => __( 'Distrito', 'mdam' ),
+        'search_items'      => __( 'Buscar Distritos', 'mdam' ),
+        'all_items'         => __( 'Todos los Distritos', 'mdam' ),
+        'parent_item'       => __( 'Distrito Padre', 'mdam' ),
+        'parent_item_colon' => __( 'Distrito Padre:', 'mdam' ),
+        'edit_item'         => __( 'Editar Distrito', 'mdam' ),
+        'update_item'       => __( 'Actualizar Distrito', 'mdam' ),
+        'add_new_item'      => __( 'Agregar Nuevo Distrito', 'mdam' ),
+        'new_item_name'     => __( 'Nuevo Nombre de Distrito', 'mdam' ),
+        'menu_name'         => __( 'Distrito', 'mdam' ),
+    );
+
+    $args = array(
+        'labels'            => $labels,
+        'hierarchical'      => true,
+        'show_ui'           => true,
+        'show_in_rest'      => true,
+        'rewrite'           => array( 'slug' => 'distrito' ),
+    );
+
+    register_taxonomy( 'distrito', array( 'murales' ), $args );
+}
+add_action( 'init', 'distritoTaxonomy' );
+
+
+// Registrar la taxonomía Financiación
+function financiacionTaxonomy() {
+    $labels = array(
+        'name'              => __( 'Financiaciones', 'mdam' ),
+        'singular_name'     => __( 'Financiación', 'mdam' ),
+        'search_items'      => __( 'Buscar Financiaciones', 'mdam' ),
+        'all_items'         => __( 'Todas las Financiaciones', 'mdam' ),
+        'parent_item'       => __( 'Financiación Padre', 'mdam' ),
+        'parent_item_colon' => __( 'Financiación Padre:', 'mdam' ),
+        'edit_item'         => __( 'Editar Financiación', 'mdam' ),
+        'update_item'       => __( 'Actualizar Financiación', 'mdam' ),
+        'add_new_item'      => __( 'Agregar Nueva Financiación', 'mdam' ),
+        'new_item_name'     => __( 'Nuevo Nombre de Financiación', 'mdam' ),
+        'menu_name'         => __( 'Financiación', 'mdam' ),
+    );
+
+    $args = array(
+        'labels'            => $labels,
+        'hierarchical'      => true,
+        'show_ui'           => true,
+        'show_in_rest'      => true,
+        'rewrite'           => array( 'slug' => 'financiacion' ),
+    );
+
+    register_taxonomy( 'financiacion', array( 'murales' ), $args );
+}
+add_action( 'init', 'financiacionTaxonomy' );
+
+// Agregar campos adicionales para la imagen destacada y descripción en Artista y Financiación
+function agregarCustomFieldsTaxonomy($term) {
+    // Obtener el ID del término
+    $term_id = $term->term_id;
+
+    // Obtener los valores guardados (si existen)
+    $image_id = get_term_meta( $term_id, 'imagenDestacada', true );
+    $description = get_term_meta( $term_id, 'descripcionExtra', true );
+
+    // Campo para la imagen destacada
+    echo '<tr class="form-field term-group-wrap">';
+    echo '<th scope="row"><label for="imagenDestacada">' . __( 'Imagen Destacada', 'mdam' ) . '</label></th>';
+    echo '<td>';
+    echo '<input type="hidden" id="imagenDestacada" name="imagenDestacada" value="' . esc_attr( $image_id ) . '" />';
+    echo '<img id="imagenDestacadaPreview" src="' . wp_get_attachment_url( $image_id ) . '" style="max-width:150px; max-height:150px;" />';
+    echo '<input type="button" class="button" id="subirImagen" value="' . __( 'Subir Imagen', 'mdam' ) . '" />';
+    echo '<input type="button" class="button" id="borrarImagen" value="' . __( 'Quitar Imagen', 'mdam' ) . '" />';
+    echo '</td></tr>';
+
+    // Campo para descripción extendida
+    echo '<tr class="form-field term-group-wrap">';
+    echo '<th scope="row"><label for="descripcionExtra">' . __( 'Descripción Extra', 'mdam' ) . '</label></th>';
+    echo '<td>';
+    echo '<textarea id="descripcionExtra" name="descripcionExtra" rows="5" cols="40">' . esc_textarea( $description ) . '</textarea>';
+    echo '</td></tr>';
+}
+add_action( 'artista_edit_form_fields', 'agregarCustomFieldsTaxonomy' );
+add_action( 'financiacion_edit_form_fields', 'agregarCustomFieldsTaxonomy' );
+
+// Guardar los campos personalizados al editar una taxonomía
+/*function guardarCustomTaxonomyFields( $term_id ) {
+    if ( isset( $_POST['imagenDestacada'] ) ) {
+        update_term_meta( $term_id, 'imagenDestacada', sanitize_text_field( $_POST['imagenDestacada'] ) );
+    }
+    if ( isset( $_POST['descripcionExtra'] ) ) {
+        update_term_meta( $term_id, 'descripcionExtra', sanitize_text_field( $_POST['descripcionExtra'] ) );
+    }
+}
+add_action( 'editarArtista', 'guardarCustomTaxonomyFields' );
+add_action( 'editarFinanciacion', 'guardarCustomTaxonomyFields' );
+*/
+
+function guardarCustomTaxonomyFields($term_id) {
+    // Guardar imagen destacada
+    if (isset($_POST['imagenDestacada'])) {
+        update_term_meta($term_id, 'imagenDestacada', sanitize_text_field($_POST['imagenDestacada']));
+    }
+
+    // Guardar descripción extra
+    if (isset($_POST['descripcionExtra'])) {
+        update_term_meta($term_id, 'descripcionExtra', sanitize_textarea_field($_POST['descripcionExtra']));
+    }
+}
+add_action('edited_artista', 'guardarCustomTaxonomyFields');
+
+
+// Agregar scripts para el manejo de la imagen destacada
+function enqueueMediaScripts() {
+    wp_enqueue_media();
+    wp_enqueue_script( 'custom-admin-scripts', plugin_dir_url( __FILE__ ) . 'imgDestacada.js', array('jquery'), null, true );
+}
+add_action( 'admin_enqueue_scripts', 'enqueueMediaScripts' );
+
+// Añadir nuevas columnas a la lista de murales en el admin
+function agregarColumnasMurales($columns) {
+    // Añadir nuevas columnas para Artista, Distrito y Financiación
+    $columns['artista'] = __('Artista', 'mdam');
+    $columns['distrito'] = __('Distrito', 'mdam');
+    $columns['financiacion'] = __('Financiación', 'mdam');
+    
+    return $columns;
+}
+add_filter('manage_murales_posts_columns', 'agregarColumnasMurales');
+
+// Rellenar las columnas con los datos correspondientes
+function mostrarDatosColumnasMurales($column, $post_id) {
+    switch ($column) {
+        case 'artista':
+            // Obtener el término de la taxonomía 'Artista'
+            $terms = get_the_term_list($post_id, 'artista', '', ', ', '');
+            if (is_string($terms)) {
+                echo $terms;
+            } else {
+                echo __('Sin Artista', 'mdam');
+            }
+            break;
+
+        case 'distrito':
+            // Obtener el término de la taxonomía 'Distrito'
+            $terms = get_the_term_list($post_id, 'distrito', '', ', ', '');
+            if (is_string($terms)) {
+                echo $terms;
+            } else {
+                echo __('Sin Distrito', 'mdam');
+            }
+            break;
+
+        case 'financiacion':
+            // Obtener el término de la taxonomía 'Financiación'
+            $terms = get_the_term_list($post_id, 'financiacion', '', ', ', '');
+            if (is_string($terms)) {
+                echo $terms;
+            } else {
+                echo __('Sin Financiación', 'mdam');
+            }
+            break;
+    }
+}
+add_action('manage_murales_posts_custom_column', 'mostrarDatosColumnasMurales', 10, 2);
+
+// Hacer que las columnas sean ordenables
+function columnasOrdenablesMurales($columns) {
+    $columns['artista'] = 'artista';
+    $columns['distrito'] = 'distrito';
+    $columns['financiacion'] = 'financiacion';
+    return $columns;
+}
+add_filter('manage_edit-murales_sortable_columns', 'columnasOrdenablesMurales');
