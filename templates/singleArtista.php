@@ -12,10 +12,10 @@ if (!empty($artista_terms)) {
     $instagram = get_term_meta($term_id, 'instagram', true);
     $twitter = get_term_meta($term_id, 'twitter', true);
     $mote = get_term_meta($term_id, 'mote', true);
-    $descripcion_extra = get_term_meta($term_id, 'descripcion_extra', true);
-    $descripcion_detallada = get_term_meta($term_id, 'descripcion_detallada', true);
+    $descripcionExtra = get_term_meta($term_id, 'descripcionExtra', true);
+    $descripcionDetallada = get_term_meta($term_id, 'descripcionDetallada', true);
     $imagen_destacada_id = get_term_meta($term_id, 'imagenDestacada', true); // Recuperar ID de la imagen
-
+  
     ?>
 
     <div class="artist-info">
@@ -54,21 +54,23 @@ if (!empty($artista_terms)) {
                 <a href="<?php echo esc_url($twitter); ?>" target="_blank">Twitter <?php echo esc_html($artista->name); ?></a>
             <?php endif; ?>
         </div>
-
-        <?php if ($descripcion_extra) : ?>
+<p>aca descripciones</p>
+        <?php // var_dump($descripcionExtra);?>
+        <?php // var_dump($descripcionDetallada);?>
+        <?php if ($descripcionExtra) : ?>
             <div class="artist-description-extra">
                 <h3>Descripción Extra</h3>
-                <p><?php echo wp_kses_post($descripcion_extra); ?></p>
+                <p><?php echo wp_kses_post($descripcionExtra); ?></p>
             </div>
         <?php endif; ?>
 
-        <?php if ($descripcion_detallada) : ?>
+        <?php if ($descripcionDetallada) : ?>
             <div class="artist-description-detallada">
                 <h3>Descripción Detallada</h3>
-                <p><?php echo wp_kses_post($descripcion_detallada); ?></p>
+                <p><?php echo wp_kses_post($descripcionDetallada); ?></p>
             </div>
         <?php endif; ?>
-
+        <p>fin descripciones</p>
         <!-- Mostrar los murales asociados -->
         <div class="artist-murales">
             <h3>Murales del Artista</h3>
