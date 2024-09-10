@@ -3,7 +3,7 @@
 function artistaTaxonomy() {
     $labels = array(
         'name'              => __( 'Artistas', 'mdam' ),
-        // Otras etiquetas... ??
+        // Otras etiquetas...
     );
 
     $args = array(
@@ -14,10 +14,76 @@ function artistaTaxonomy() {
         'rewrite'           => array( 'slug' => 'artista' ),
     );
 
-    register_taxonomy( 'artista', array( 'murales' ), $args );
+    // Asociar la taxonomía tanto a 'murales' como a 'artista'
+    register_taxonomy( 'artista', array( 'murales', 'artista' ), $args );
 }
 add_action( 'init', 'artistaTaxonomy' );
 
+// Agregar los campos personalizados a la taxonomía Artista
+function agregar_campos_artista_extra($term) {
+    // Obtener los valores actuales de los metadatos
+    $linkedin = get_term_meta($term->term_id, 'linkedin', true);
+    $instagram = get_term_meta($term->term_id, 'instagram', true);
+    $twitter = get_term_meta($term->term_id, 'twitter', true);
+    $mote = get_term_meta($term->term_id, 'mote', true);
+    ?>
+    <tr class="form-field">
+        <th scope="row" valign="top">
+            <label for="mote"><?php _e('Mote (Subtítulo)', 'mdam'); ?></label>
+        </th>
+        <td>
+            <input type="text" name="mote" id="mote" value="<?php echo esc_attr($mote); ?>" />
+            <p class="description"><?php _e('Subtítulo o apodo del artista.', 'mdam'); ?></p>
+        </td>
+    </tr>
+    <tr class="form-field">
+        <th scope="row" valign="top">
+            <label for="linkedin"><?php _e('LinkedIn', 'mdam'); ?></label>
+        </th>
+        <td>
+            <input type="url" name="linkedin" id="linkedin" value="<?php echo esc_attr($linkedin); ?>" />
+            <p class="description"><?php _e('URL del perfil de LinkedIn del artista.', 'mdam'); ?></p>
+        </td>
+    </tr>
+    <tr class="form-field">
+        <th scope="row" valign="top">
+            <label for="instagram"><?php _e('Instagram', 'mdam'); ?></label>
+        </th>
+        <td>
+            <input type="url" name="instagram" id="instagram" value="<?php echo esc_attr($instagram); ?>" />
+            <p class="description"><?php _e('URL del perfil de Instagram del artista.', 'mdam'); ?></p>
+        </td>
+    </tr>
+    <tr class="form-field">
+        <th scope="row" valign="top">
+            <label for="twitter"><?php _e('Twitter', 'mdam'); ?></label>
+        </th>
+        <td>
+            <input type="url" name="twitter" id="twitter" value="<?php echo esc_attr($twitter); ?>" />
+            <p class="description"><?php _e('URL del perfil de Twitter del artista.', 'mdam'); ?></p>
+        </td>
+    </tr>
+    <?php
+}
+add_action('artista_edit_form_fields', 'agregar_campos_artista_extra', 10, 2);
+
+// Guardar los campos personalizados
+function guardar_campos_artista_extra($term_id) {
+    if (isset($_POST['linkedin'])) {
+        update_term_meta($term_id, 'linkedin', esc_url($_POST['linkedin']));
+    }
+    if (isset($_POST['instagram'])) {
+        update_term_meta($term_id, 'instagram', esc_url($_POST['instagram']));
+    }
+    if (isset($_POST['twitter'])) {
+        update_term_meta($term_id, 'twitter', esc_url($_POST['twitter']));
+    }
+    if (isset($_POST['mote'])) {
+        update_term_meta($term_id, 'mote', sanitize_text_field($_POST['mote']));
+    }
+}
+add_action('edited_artista', 'guardar_campos_artista_extra', 10, 2);
+add_action('create_artista', 'guardar_campos_artista_extra', 10, 2);
 
 
 // Registrar la taxonomía Distrito

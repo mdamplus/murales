@@ -27,16 +27,14 @@ function murales_enqueue_media_scripts() {
 }
 add_action('admin_enqueue_scripts', 'murales_enqueue_media_scripts');
 
-// Plantillas de Custom Post Types
-function cargarPlantillaSingle($template) {
+// Plantillas para Custom Post Types y taxonomías
+function cargarPlantillaCustom($template) {
     if (is_singular('murales')) {
         $plugin_template = plugin_dir_path(__FILE__) . 'templates/singleMurales.php';
         if (file_exists($plugin_template)) {
             return $plugin_template;
         }
-    }
-    
-    if (is_singular('artista')) {
+    } elseif (is_tax('artista')) {
         $plugin_template = plugin_dir_path(__FILE__) . 'templates/singleArtista.php';
         if (file_exists($plugin_template)) {
             return $plugin_template;
@@ -45,4 +43,33 @@ function cargarPlantillaSingle($template) {
 
     return $template;
 }
-add_filter('single_template', 'cargarPlantillaSingle');
+add_filter('template_include', 'cargarPlantillaCustom');
+
+
+
+// nueva versión
+function mostrar_campos_artista($term_id) {
+    // Obtener los metadatos personalizados
+    $linkedin = get_term_meta($term_id, 'linkedin', true);
+    $instagram = get_term_meta($term_id, 'instagram', true);
+    $twitter = get_term_meta($term_id, 'twitter', true);
+    $mote = get_term_meta($term_id, 'mote', true);
+
+    // Mostrar el Mote
+    if ($mote) {
+        echo '<h2 class="artist-subtitle">' . esc_html($mote) . '</h2>';
+    }
+
+    // Mostrar los enlaces de redes sociales si existen
+    echo '<div class="artist-social-links">';
+    if ($linkedin) {
+        echo '<a href="' . esc_url($linkedin) . '" target="_blank">LinkedIn</a><br>';
+    }
+    if ($instagram) {
+        echo '<a href="' . esc_url($instagram) . '" target="_blank">Instagram</a><br>';
+    }
+    if ($twitter) {
+        echo '<a href="' . esc_url($twitter) . '" target="_blank">Twitter</a>';
+    }
+    echo '</div>';
+}

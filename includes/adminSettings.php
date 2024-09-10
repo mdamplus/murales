@@ -66,7 +66,7 @@ function campoGoogleMapsApiKey() {
 function encolarAdminStyles() {
     wp_enqueue_style(
         'admin-styles',
-        plugin_dir_url(__FILE__) . 'css/adminStyles.css'
+        plugin_dir_url(__FILE__) . '../assets/css/adminStyles.css'
     );
 }
 add_action('admin_enqueue_scripts', 'encolarAdminStyles');
