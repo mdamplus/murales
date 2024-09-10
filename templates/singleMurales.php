@@ -5,27 +5,23 @@ get_header(); // Incluye el encabezado del tema
 if (have_posts()) :
     while (have_posts()) : the_post(); ?>
 
-        <div class="container"> <!-- Asumiendo que el tema usa .container  -->
+        <div class="container" style="max-width:100%;"> <!-- Asumiendo que el tema usa .container  -->
             <div class="row">
                 <div class="col-md-12"> <!-- Ajustar la columna según la cuadrícula -->
 
                     <!-- Imagen destacada -->
                     <?php if (has_post_thumbnail()) : ?>
-                        <div class="post-thumbnail">
+                        <div class="post-thumbnail" style="position: relative;">
                             <?php the_post_thumbnail('full', array('class' => 'img-fluid')); ?>
+                            <div class="h1-container" style="position: absolute; bottom: 55px; left: 0; color: white; background-color: rgba(0, 0, 0, 0.5); padding: 10px !important;">
+                                <h1 style="margin-bottom:0px;"><?php the_title(); ?></h1>
+                            </div>
                         </div>
                     <?php endif; ?>
-
+<!-- <p><strong>Fecha de Creación:</strong> <?php echo get_the_date(); ?></p> -->
                     <!-- Meta información -->
-                    <div class="postMeta">
-                        <p><strong>Fecha de Creación:</strong> <?php echo get_the_date(); ?></p>
-
-                        <!-- Información adicional del Custom Post Type -->
-                        <p><strong>Artista:</strong> <?php echo get_the_term_list(get_the_ID(), 'artista', '', ', '); ?></p>
-                        <p><strong>Distrito:</strong> <?php echo get_the_term_list(get_the_ID(), 'distrito', '', ', '); ?></p>
-                        <p><strong>Financiación:</strong> <?php echo get_the_term_list(get_the_ID(), 'financiacion', '', ', '); ?></p>
-                        
-                        <?php
+                    <div class="postMeta" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; margin-top:-10px; background-color: lightgray; padding: 20px;">
+                    <?php
                         // Obtener y mostrar la dirección
                         $direccion = get_post_meta(get_the_ID(), 'direccion_murales', true);
                         if ($direccion) :
@@ -33,20 +29,26 @@ if (have_posts()) :
                             $mapUrl = 'https://www.google.com/maps/embed/v1/place?key=' . esc_attr($apiKey) . '&q=' . urlencode($direccion);
                             $mapLink = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($direccion); // Enlace directo a Google Maps
                         ?>
-                            <p><strong>Dirección:</strong> <a href="<?php echo esc_url($mapLink); ?>" target="_blank" title="<?php echo esc_html($direccion); ?>"><?php echo esc_html($direccion); ?></a></p>
-                            
-                            <div class="mapaGoogle">
-                                <iframe src="<?php echo esc_url($mapUrl); ?>" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                            <div class="mapaGoogle" style="flex: 1; min-width: 300px; margin: 10px; max-width: 100%;">
+                                <iframe src="<?php echo esc_url($mapUrl); ?>" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                             </div>
+                        <div class="info" style="flex: 1; min-width: 300px; margin: 10px; max-width: 100%;">
+                            <!-- Información adicional del Custom Post Type -->
+                            <p><strong>Artista:</strong> <?php echo get_the_term_list(get_the_ID(), 'artista', '', ', '); ?></p>
+                            <p><strong>Distrito:</strong> <?php echo get_the_term_list(get_the_ID(), 'distrito', '', ', '); ?></p>
+                            <p><strong>Financiación:</strong> <?php echo get_the_term_list(get_the_ID(), 'financiacion', '', ', '); ?></p>
+                            <p><strong>Dirección:</strong> <a href="<?php echo esc_url($mapLink); ?>" target="_blank" title="<?php echo esc_html($direccion); ?>"><?php echo esc_html($direccion); ?></a></p>
+                        </div>    
+                            
                         <?php endif; ?>
                     </div>
 
                     <!-- Contenido del post -->
-                    <div class="post-content">
+                    <div class="post-content" style="max-width:50%;margin-left:25%;margin-top:20px;">
                         <?php the_content(); ?>
                     </div>
 
-                    <!-- Información del artista -->
+                    <!-- Información del artista 
                     <?php
                     $artista_ids = wp_get_post_terms(get_the_ID(), 'artista', array('fields' => 'ids'));
                     if ($artista_ids) :
@@ -79,7 +81,7 @@ if (have_posts()) :
                                 </div>
                             </div>
                         <?php endforeach; ?>
-                    <?php endif; ?>
+                    <?php endif; ?>-->
 
                 </div>
             </div>
