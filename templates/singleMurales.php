@@ -22,6 +22,7 @@ if (have_posts()) :
                     <!-- Meta información -->
                     <div class="postMeta" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; margin-top:-10px; background-color: lightgray; padding: 20px;">
                     <?php
+                        
                         // Obtener y mostrar la dirección
                         $direccion = get_post_meta(get_the_ID(), 'direccion_murales', true);
                         if ($direccion) :
