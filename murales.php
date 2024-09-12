@@ -24,6 +24,7 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/adminColumns.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/adminSettings.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/googleMaps.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/scripts.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/media.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/ids.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/social.php';
 

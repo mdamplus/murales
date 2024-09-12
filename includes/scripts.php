@@ -10,10 +10,8 @@ function enqueueGoogleMapsScript() {
 }
 add_action('wp_enqueue_scripts', 'enqueueGoogleMapsScript');
 
-
-// Enqueue de scripts
-function murales_enqueue_media_scripts() {
-    wp_enqueue_media();
-    wp_enqueue_script('custom-admin-scripts', plugin_dir_url(__FILE__) . 'assets/js/imgDestacada.js', array('jquery'), null, true);
+//encolar hoja de estilos css
+function enqueue_custom_styles() {
+    wp_enqueue_style('custom-styles', plugin_dir_url(__FILE__) . '../assets/css/style.css');
 }
-add_action('admin_enqueue_scripts', 'murales_enqueue_media_scripts');
+add_action('wp_enqueue_scripts', 'enqueue_custom_styles');

@@ -1,32 +1,28 @@
-(function($) {
-    $(document).ready(function() {
-        var mediaUploader;
+jQuery(document).ready(function($) {
+    var custom_uploader;
 
-        $('#subirImagen').on('click', function(e) {
-            e.preventDefault();
-            if (mediaUploader) {
-                mediaUploader.open();
-                return;
-            }
-            mediaUploader = wp.media.frames.file_frame = wp.media({
-                title: 'Seleccionar Imagen',
-                button: {
-                    text: 'Usar esta imagen'
-                }, 
-                multiple: false 
-            });
-            mediaUploader.on('select', function() {
-                var attachment = mediaUploader.state().get('selection').first().toJSON();
-                $('#imagenDestacada').val(attachment.id);
-                $('#imagenDestacadaPreview').attr('src', attachment.url).show();
-            });
-            mediaUploader.open();
+    $('#subirImagen').click(function(e) {
+        e.preventDefault();
+
+        if (custom_uploader) {
+            custom_uploader.open();
+            return;
+        }
+
+        custom_uploader = wp.media.frames.custom_header = wp.media({
+            title: 'Seleccionar Imagen',
+            button: {
+                text: 'Usar esta imagen'
+            },
+            multiple: false
         });
 
-        $('#borrarImagen').on('click', function(e) {
-            e.preventDefault();
-            $('#imagenDestacada').val('');
-            $('#imagenDestacadaPreview').attr('src', '').hide();
+        custom_uploader.on('select', function() {
+            var attachment = custom_uploader.state().get('selection').first().toJSON();
+            $('#imagenDestacada').val(attachment.id);
+            $('#subirImagen').prev('img').attr('src', attachment.url);
         });
+
+        custom_uploader.open();
     });
-})(jQuery);
+});
